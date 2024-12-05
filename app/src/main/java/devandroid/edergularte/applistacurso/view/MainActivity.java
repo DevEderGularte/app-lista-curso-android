@@ -15,5 +15,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         pessoa = new Pessoa();
+        //Atribuir conteúdo, dados, valores para o Objeto
+        // Conforme o seu MODELO TEMPLATE
+        pessoa.setPrimeiroNome("Eder");
+        pessoa.setSobreNome("Gularte");
+        pessoa.setCursoDesejado("Android");
+        pessoa.setTelefoneContato("62-985618759");
     }
 }
