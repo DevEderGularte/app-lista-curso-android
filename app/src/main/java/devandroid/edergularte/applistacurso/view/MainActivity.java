@@ -3,6 +3,7 @@ package devandroid.edergularte.applistacurso.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import devandroid.edergularte.applistacurso.R;
 import devandroid.edergularte.applistacurso.model.Pessoa;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         outraPessoa.setSobreNome("Lima");
         outraPessoa.setCursoDesejado("Social Media");
         outraPessoa.setTelefoneContato("62-986053975");
-
+/*
         dadosPessoa = "Primeiro Nome: ";
         dadosPessoa += pessoa.getPrimeiroNome();
         dadosPessoa += " Sobrenome: ";
@@ -48,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         dadosOutraPessoa += outraPessoa.getCursoDesejado();
         dadosOutraPessoa += " Telefone Contato ";
         dadosOutraPessoa += outraPessoa.getTelefoneContato();
+*/
+        Log.i("POOAndroid","Objeto Pessoa: " + pessoa.toString());
+        Log.i("POOAndroid","Objeto Pessoa: " + outraPessoa.toString());
 
-        int parada = 0;
     }
 }
