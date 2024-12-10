@@ -1,20 +1,50 @@
 package devandroid.edergularte.applistacurso.controller;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import devandroid.edergularte.applistacurso.model.Pessoa;
+import devandroid.edergularte.applistacurso.view.MainActivity;
 
 public class PessoaController {
+    SharedPreferences preferences;
+    SharedPreferences.Editor listaVip;
+    private static final String NOME_PREFERENCES = "pref_listavip";
+
+    public PessoaController(MainActivity mainActivity){
+        preferences = mainActivity.getSharedPreferences(NOME_PREFERENCES, 0);
+        listaVip = preferences.edit();
+    }
     @NonNull
     @Override
     public String toString() {
-        Log.d("MVC_Controller","Controller Iniciada");
+        Log.d("MVC_Controller", "Controller Iniciada");
         return super.toString();
     }
 
-    public void salvar(Pessoa pessoa) {
-        Log.d("MVC_Controller","Salvo: "+pessoa.toString());
+      public void salvar(Pessoa pessoa) {
+        Log.d("MVC_Controller", "Salvo: " + pessoa.toString());
+
+        listaVip.putString("primeiroNome",pessoa.getPrimeiroNome());
+        listaVip.putString("sobreNome",pessoa.getSobreNome());
+        listaVip.putString("nomeCurso",pessoa.getCursoDesejado());
+        listaVip.putString("telefoneContato",pessoa.getTelefoneContato());
+        listaVip.apply();
+    }
+
+    public Pessoa buscar(Pessoa pessoa) {
+        pessoa.setPrimeiroNome(preferences.getString("primeiroNome","N/A"));
+        pessoa.setSobreNome(preferences.getString("sobreNome","N/A"));
+        pessoa.setCursoDesejado(preferences.getString("nomeCurso","N/A"));
+        pessoa.setTelefoneContato(preferences.getString("telefoneContato","N/A"));
+
+        return pessoa;
+    }
+
+    public void limpar() {
+        listaVip.clear();
+        listaVip.apply();
     }
 }
