@@ -1,7 +1,5 @@
 package devandroid.edergularte.applistacurso.view;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,11 +7,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import devandroid.edergularte.applistacurso.R;
+import devandroid.edergularte.applistacurso.controller.PessoaController;
 import devandroid.edergularte.applistacurso.model.Pessoa;
 
+import android.content.SharedPreferences;
 public class MainActivity extends AppCompatActivity {
-
+    SharedPreferences preferences;
+    private static final String NOME_PREFERENCES = "pref_listavip";
+    PessoaController controller;
     Pessoa pessoa;
     Pessoa outraPessoa;
     EditText editPrimeiroNome;
@@ -28,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = getSharedPreferences(NOME_PREFERENCES, 0);
+        SharedPreferences.Editor listaVip = preferences.edit();
+        controller = new PessoaController();
+        controller.toString();
+
         pessoa = new Pessoa();
 
         outraPessoa = new Pessoa();
@@ -76,6 +86,14 @@ public class MainActivity extends AppCompatActivity {
                 pessoa.setTelefoneContato(editTelefoneContato.getText().toString());
 
                 Toast.makeText(MainActivity.this, "Salvo " + pessoa.toString(), Toast.LENGTH_LONG).show();
+
+                listaVip.putString("primeiroNome",pessoa.getPrimeiroNome());
+                listaVip.putString("sobreNome",pessoa.getSobreNome());
+                listaVip.putString("nomeCurso",pessoa.getCursoDesejado());
+                listaVip.putString("telefoneContato",pessoa.getTelefoneContato());
+                listaVip.apply();
+
+                controller.salvar(pessoa);
             }
         });
 
