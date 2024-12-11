@@ -3,8 +3,10 @@ package devandroid.edergularte.applistacurso.view;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,10 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import devandroid.edergularte.applistacurso.R;
 import devandroid.edergularte.applistacurso.controller.CursoController;
 import devandroid.edergularte.applistacurso.controller.PessoaController;
-import devandroid.edergularte.applistacurso.model.Curso;
 import devandroid.edergularte.applistacurso.model.Pessoa;
-
-import android.content.SharedPreferences;
 
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     PessoaController controller;
     CursoController cursoController;
     Pessoa pessoa;
-    List<Curso> listaDeCursos;
+    List<String> nomesDosCursos;
     Pessoa outraPessoa;
     EditText editPrimeiroNome;
     EditText editSobreNome;
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Button btnLimpar;
     Button btnSalvar;
     Button btnFinalizar;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         controller.toString();
 
         cursoController = new CursoController();
-        listaDeCursos = cursoController.getListaDeCursos();
+        nomesDosCursos = cursoController.dadosParaSpinner();
 
         pessoa = new Pessoa();
         controller.buscar(pessoa);
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         editSobreNome = findViewById(R.id.editSobreNome);
         editNomeCurso = findViewById(R.id.editNomeCurso);
         editTelefoneContato = findViewById(R.id.editTelefoneContato);
+        spinner = findViewById(R.id.spinner);
 
         editPrimeiroNome.setText(pessoa.getPrimeiroNome());
         editSobreNome.setText(pessoa.getSobreNome());
@@ -60,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
         btnLimpar = findViewById(R.id.btnLimpar);
         btnSalvar = findViewById(R.id.btnSalvar);
         btnFinalizar = findViewById(R.id.btnFinalizar);
+
+        //Adapter
+        //Layout
+        //Injetar Adapter ao Spinner - Lista será gerada
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1, cursoController.dadosParaSpinner());
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+        spinner.setAdapter(adapter);
 
         btnLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
