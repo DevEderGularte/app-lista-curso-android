@@ -5,6 +5,7 @@
     <string name="txt_hint_edit_sobrenome">Sobrenome</string>
     <string name="txt_hint_edit_curso">Curso</string>
     <string name="txt_hint_edit_telefone">Telefone</string>
+    <string name="txt_selecione_um_curso">Selecione um Curso...</string>
     <string name="btn_clear">Limpar</string>
     <string name="btn_save">Salvar</string>
     <string name="btn_end">Finalizar</string>
